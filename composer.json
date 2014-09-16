@@ -1,0 +1,15 @@
+{
+    "name": "ibodnar/simple-set",
+    "version": "1.0.0-dev",
+    "authors": [
+        {
+            "name": "Bodnar Igor",
+            "email": "bodnar_i@mail.ru"
+        }
+    ],
+    "autoload": {
+        "psr-0" : {
+            "ibodnar\\SimpleSet" : "src"
+        }
+    }
+}
