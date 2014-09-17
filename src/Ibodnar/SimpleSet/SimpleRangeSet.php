@@ -49,7 +49,7 @@ class SimpleRangeSet implements SimpleRangeSetInterface
     }
 
     /**
-     * @return number
+     * @return mixed
      */
     public function getBegin()
     {
@@ -57,7 +57,7 @@ class SimpleRangeSet implements SimpleRangeSetInterface
     }
 
     /**
-     * @param number $begin
+     * @param mixed $begin
      *
      * @return SimpleRangeSetInterface
      */
@@ -69,7 +69,7 @@ class SimpleRangeSet implements SimpleRangeSetInterface
     }
 
     /**
-     * @return number
+     * @return mixed
      */
     public function getEnd()
     {
@@ -77,7 +77,7 @@ class SimpleRangeSet implements SimpleRangeSetInterface
     }
 
     /**
-     * @param number $end
+     * @param mixed $end
      *
      * @return SimpleRangeSetInterface
      */
@@ -94,7 +94,7 @@ class SimpleRangeSet implements SimpleRangeSetInterface
      */
     public function copy()
     {
-        return new SimpleRangeSet($this->getBegin(), $this->getEnd(), $this->value);
+        return new SimpleRangeSet(clone $this->getBegin(), clone $this->getEnd(), $this->value);
     }
 
 
