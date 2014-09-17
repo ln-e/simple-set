@@ -62,6 +62,35 @@ class Set implements \Iterator
     }
 
     /**
+     * Заменяет пересекающиеся участки множетсва на новое подмножество от a до б
+     *
+     * @param mixed $a
+     * @param mixed $b
+     * @param mixed $value
+     */
+    public function replace($a, $b, $value)
+    {
+        $this->replaceSet(new SimpleRangeSet($a, $b, $value));
+    }
+
+    /**
+     * Заменяет пересекающиеся участки множетсва на новое подмножество
+     *
+     * @param SimpleRangeSetInterface $set
+     */
+    public function replaceSet(SimpleRangeSetInterface $set)
+    {
+        for ($key = 0; $key < count($this->sets); $key++) {
+            $existingSet = $this->sets[$key];
+            if ($existingSet instanceof SimpleRangeSet) {
+                if (($intersectSet = $existingSet->intersect($set))!=null) {
+                    $this->addSet($intersectSet);
+                }
+            }
+        }
+    }
+
+    /**
      * Вычитает подмножетсво от a до б
      *
      * @param mixed $a
