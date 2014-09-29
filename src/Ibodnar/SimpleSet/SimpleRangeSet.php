@@ -121,7 +121,7 @@ class SimpleRangeSet implements SimpleRangeSetInterface
     {
         $begin = max($this->getBegin(), $simpleRangeSet->getBegin());
         $end = min($this->getEnd(), $simpleRangeSet->getEnd());
-        if ($begin>$end) {
+        if ($begin>=$end) {
             return null;
         }
 
