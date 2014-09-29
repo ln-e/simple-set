@@ -91,6 +91,29 @@ class Set implements \Iterator
     }
 
     /**
+     * Проверяет есть ли пересечение с отрезком от а до б
+     *
+     * @param mixed $a
+     * @param mixed $b
+     *
+     * @return bool
+     */
+    public function isIntersect($a, $b)
+    {
+        $set = new SimpleRangeSet($a, $b, null);
+        for ($key = 0; $key < count($this->sets); $key++) {
+            $existingSet = $this->sets[$key];
+            if ($existingSet instanceof SimpleRangeSet) {
+                if (($existingSet->intersect($set))!=null) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Вычитает подмножетсво от a до б
      *
      * @param mixed $a
