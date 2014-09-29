@@ -41,7 +41,7 @@ class SimpleRangeSet implements SimpleRangeSetInterface
     public function __construct($begin, $end, $value)
     {
         if ($begin>$end) {
-            throw new SimpleRangeSetException(sprintf("Невозможно создать множество со значениями %s %s. Начало не может быть после конца.", $begin, $end));
+            throw new SimpleRangeSetException(sprintf("Невозможно создать множество со значениями %s %s. Начало не может быть после конца.", print_r($begin, true), print_r($end, true)));
         }
         $this->begin = $begin;
         $this->end = $end;
