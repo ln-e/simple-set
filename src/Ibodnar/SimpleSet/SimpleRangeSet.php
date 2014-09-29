@@ -144,13 +144,13 @@ class SimpleRangeSet implements SimpleRangeSetInterface
 
         if ($intersect->getBegin() == $this->getBegin()) {
             return array(
-                new SimpleRangeSet(max($this->getBegin(), $intersect->getEnd()), $this->getEnd(), $this->getValue()),
+                new SimpleRangeSet($intersect->getEnd(), $this->getEnd(), $this->getValue()),
             );
         }
 
         if ($intersect->getEnd() == $this->getEnd()) {
             return array(
-                new SimpleRangeSet($this->getBegin(), min($this->getEnd(), $intersect->getBegin()), $this->getValue()),
+                new SimpleRangeSet($this->getBegin(), $intersect->getBegin(), $this->getValue()),
             );
         }
 
