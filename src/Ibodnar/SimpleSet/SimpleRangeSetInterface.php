@@ -87,6 +87,15 @@ interface SimpleRangeSetInterface
      */
     public function intersect(SimpleRangeSetInterface $simpleRangeSet);
 
+    /**
+     * Проверяет, граничат ли они в одной точке (в начале или в конце)
+     *
+     * @param SimpleRangeSetInterface $set
+     *
+     * @return bool
+     */
+    public function isBound(SimpleRangeSetInterface $set);
+
 
     /**
      * Возвращает массив состоящий из SimpleRangeSetInterface содержащий результат разбиения

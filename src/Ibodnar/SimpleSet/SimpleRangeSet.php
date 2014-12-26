@@ -94,7 +94,17 @@ class SimpleRangeSet implements SimpleRangeSetInterface
      */
     public function copy()
     {
-        return new SimpleRangeSet(clone $this->getBegin(), clone $this->getEnd(), $this->value);
+        if (is_object($this->getBegin())) {
+            $s = clone $this->getBegin();
+        } else {
+            $s = $this->getBegin();
+        }
+        if (is_object($this->getEnd())) {
+            $e = clone $this->getEnd();
+        } else {
+            $e = $this->getEnd();
+        }
+        return new SimpleRangeSet($s, $e, $this->value);
     }
 
 
@@ -105,7 +115,7 @@ class SimpleRangeSet implements SimpleRangeSetInterface
      */
     public function merge(SimpleRangeSetInterface $simpleRangeSet)
     {
-        if ($this->intersect($simpleRangeSet) && $this->getValue() == $simpleRangeSet->getValue()) {
+        if ( ($this->intersect($simpleRangeSet) || $this->isBound($simpleRangeSet) ) && $this->getValue() == $simpleRangeSet->getValue()) {
             $this->setBegin(min($this->getBegin(), $simpleRangeSet->getBegin()));
             $this->setEnd(max($this->getEnd(), $simpleRangeSet->getEnd()));
         }
@@ -214,5 +224,17 @@ class SimpleRangeSet implements SimpleRangeSetInterface
     public function getLength()
     {
         return $this->getEnd()-$this->getBegin();
+    }
+
+    /**
+     * Проверяет, граничат ли они в одной точке (в начале или в конце)
+     *
+     * @param SimpleRangeSetInterface $set
+     *
+     * @return bool
+     */
+    public function isBound(SimpleRangeSetInterface $set)
+    {
+        return $set->getBegin() == $this->getEnd() || $set->getEnd() == $this->getBegin();
     }
 }

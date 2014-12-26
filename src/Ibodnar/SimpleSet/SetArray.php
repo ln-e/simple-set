@@ -80,6 +80,12 @@ class SetArray extends \ArrayObject
                     $key--;
                 }
 
+                if ($set->isBound($set2) && $set->getValue() === $set2->getValue()) {
+                    $set2->merge($set); // объединяем смежные множества с одинаковым значением
+                    $this->remove($key);
+                    $key--;
+                }
+
             }
 
         $this->uasort(array(&$this,"compare"));
