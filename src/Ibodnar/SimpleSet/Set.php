@@ -165,6 +165,22 @@ class Set implements \Iterator
     }
 
     /**
+     * @param mixed $point
+     *
+     * @return mixed|null
+     */
+    public function getValue($point)
+    {
+        foreach ($this->sets as $set) {
+            if ($set instanceof SimpleRangeSet && $set->contain($point)) {
+                return $set->getValue();
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Вызывает оптимизацию массива подмножеств
      */
     private function optimize()
