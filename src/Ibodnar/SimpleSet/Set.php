@@ -29,6 +29,16 @@ class Set implements \Iterator
     private $sets;
 
     /**
+     * @var mixed
+     */
+    private $min;
+
+    /**
+     * @var mixed
+     */
+    private $max;
+
+    /**
      * Метод-конструктор
      */
     public function __construct()
@@ -58,7 +68,15 @@ class Set implements \Iterator
      */
     public function add($a, $b, $value)
     {
-        $this->addSet(new SimpleRangeSet($a, $b, $value));
+        $start = $a;
+        $end = $b;
+        if ($this->min) {
+            $start = max($this->min, $a);
+        }
+        if ($this->max) {
+            $end = min($this->max, $b);
+        }
+        $this->addSet(new SimpleRangeSet($start, $end, $value));
     }
 
     /**
@@ -252,5 +270,45 @@ class Set implements \Iterator
     public function rewind()
     {
         $this->currentKey = 0;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMin()
+    {
+        return $this->min;
+    }
+
+    /**
+     * @param mixed $min
+     *
+     * @return $this
+     */
+    public function setMin($min = null)
+    {
+        $this->min = $min;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMax()
+    {
+        return $this->max;
+    }
+
+    /**
+     * @param mixed $max
+     *
+     * @return $this
+     */
+    public function setMax($max = null)
+    {
+        $this->max = $max;
+
+        return $this;
     }
 }

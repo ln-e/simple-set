@@ -60,12 +60,28 @@ class SetArray extends \ArrayObject
      * Оптимизирует набор подмножеств (сортирует, обновляет значения ключей, и объединяет
      * смешные подмножества с одинакомы значением)
      *
+     * @param null $min
+     * @param null $max
+     *
      * @throws SetArrayException
      */
-    public function optimize()
+    public function optimize($min = null , $max = null)
     {
-        $this->uasort(array(&$this,"compare"));
+        $this->uasort(array(&$this, 'compare'));
         $this->refreshKeys();
+
+        for ($key = 0; $key < count($this); $key++) {
+            /** @var SimpleRangeSetInterface $set */
+            $set = $this[$key];
+            if ($min && $set->getBegin() < $min) {
+                $set->setBegin($min);
+            }
+
+            if ($max && $set->getEnd() > $max) {
+                $set->setEnd($max);
+            }
+        }
+
             for ($key = 0; $key+1 < count($this); $key++) {
                 $set = $this[$key];
                 $set2 = $this[$key+1];
