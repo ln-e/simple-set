@@ -28,4 +28,4 @@ class SimpleRangeSetException extends \Exception
         $this->message = $message;
         parent::__construct($message);
     }
-} 
+}

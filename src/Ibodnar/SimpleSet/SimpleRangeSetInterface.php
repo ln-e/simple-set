@@ -131,5 +131,4 @@ interface SimpleRangeSetInterface
      * @return mixed
      */
     public function getLength();
-
-} 
+}

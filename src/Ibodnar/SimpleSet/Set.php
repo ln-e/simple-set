@@ -101,7 +101,8 @@ class Set implements \Iterator
         for ($key = 0; $key < count($this->sets); $key++) {
             $existingSet = $this->sets[$key];
             if ($existingSet instanceof SimpleRangeSet) {
-                if (($intersectSet = $existingSet->intersect($set))!=null) {
+                $intersectSet = $existingSet->intersect($set);
+                if ($intersectSet) {
                     $this->addSet($intersectSet);
                 }
             }
@@ -119,10 +120,11 @@ class Set implements \Iterator
     public function isIntersect($a, $b)
     {
         $set = new SimpleRangeSet($a, $b, null);
-        for ($key = 0; $key < count($this->sets); $key++) {
+        $length = count($this->sets);
+        for ($key = 0; $key < $length; $key++) {
             $existingSet = $this->sets[$key];
             if ($existingSet instanceof SimpleRangeSet) {
-                if (($existingSet->intersect($set))!=null) {
+                if ($existingSet->intersect($set)) {
                     return true;
                 }
             }
@@ -154,7 +156,7 @@ class Set implements \Iterator
         for ($key = 0; $key < count($this->sets); $key++) {
             $existingSet = $this->sets[$key];
             if ($existingSet instanceof SimpleRangeSet) {
-                if (($existingSet->intersect($set))!=null) {
+                if ($existingSet->intersect($set)) {
                     $result = array_merge($result, $existingSet->subtract($set));
                     $this->sets->remove($key);
                     $key--;

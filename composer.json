@@ -1,6 +1,7 @@
 {
     "name": "ibodnar/simple-set",
-    "version": "1.0.0-dev",
+    "description": "Бибилотека управления числовыми множествами",
+    "licence": "MIT",
     "authors": [
         {
             "name": "Bodnar Igor",

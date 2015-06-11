@@ -138,6 +138,4 @@ class SetArray extends \ArrayObject
     {
         $this->merge($anotherSet->getArrayCopy());
     }
-
-
 }

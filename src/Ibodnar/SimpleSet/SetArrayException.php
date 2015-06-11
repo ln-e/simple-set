@@ -23,5 +23,4 @@ class SetArrayException extends \Exception
     {
         parent::__construct($message);
     }
-
-} 
+}
