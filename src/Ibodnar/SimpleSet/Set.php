@@ -98,12 +98,14 @@ class Set implements \Iterator
      */
     public function replaceSet(SimpleRangeSetInterface $set)
     {
-        for ($key = 0; $key < count($this->sets); $key++) {
+        $length = count($this->sets);
+        for ($key = 0; $key < $length; $key++) {
             $existingSet = $this->sets[$key];
             if ($existingSet instanceof SimpleRangeSet) {
                 $intersectSet = $existingSet->intersect($set);
                 if ($intersectSet) {
                     $this->addSet($intersectSet);
+                    $length = count($this->sets);
                 }
             }
         }
@@ -153,13 +155,15 @@ class Set implements \Iterator
     public function subtractSet(SimpleRangeSetInterface $set)
     {
         $result = array();
-        for ($key = 0; $key < count($this->sets); $key++) {
+        $length = count($this->sets);
+        for ($key = 0; $key < $length; $key++) {
             $existingSet = $this->sets[$key];
             if ($existingSet instanceof SimpleRangeSet) {
                 if ($existingSet->intersect($set)) {
                     $result = array_merge($result, $existingSet->subtract($set));
                     $this->sets->remove($key);
                     $key--;
+                    $length = count($this->sets);
                 }
             }
         }

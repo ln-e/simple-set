@@ -70,7 +70,8 @@ class SetArray extends \ArrayObject
         $this->uasort(array(&$this, 'compare'));
         $this->refreshKeys();
 
-        for ($key = 0; $key < count($this); $key++) {
+        $length = count($this);
+        for ($key = 0; $key < $length; $key++) {
             /** @var SimpleRangeSetInterface $set */
             $set = $this[$key];
             if ($min && $set->getBegin() < $min) {
@@ -82,7 +83,7 @@ class SetArray extends \ArrayObject
             }
         }
 
-            for ($key = 0; $key+1 < count($this); $key++) {
+            for ($key = 0; $key+1 < $length; $key++) {
                 $set = $this[$key];
                 $set2 = $this[$key+1];
 
@@ -94,12 +95,14 @@ class SetArray extends \ArrayObject
                     $set2->merge($set); // объединяем смежные множества с одинаковым значением
                     $this->remove($key);
                     $key--;
+                    $length = count($this);
                 }
 
                 if ($set->isBound($set2) && $set->getValue() === $set2->getValue()) {
                     $set2->merge($set); // объединяем смежные множества с одинаковым значением
                     $this->remove($key);
                     $key--;
+                    $length = count($this);
                 }
 
             }
